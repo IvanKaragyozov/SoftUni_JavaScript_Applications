@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch Example</title>
+</head>
+<body>
+
+    <button id="load">LoadRepos</button>
+    <div id="res"></div>
+
+    <script>
+        let button = document.querySelector("#load");
+        let resElement = document.getElementById('res');
+        let url = 'https://api.github.com/users/testnakov/repos';
+
+        button.addEventListener('click', () => {
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    resElement.textContent = data.map(x => x.name).join(' | ');
+                })
+                .catch(err => console.log(err));
+        });
+
+        button.addEventListener('click', function loadRepos() {
+            let url = 'https://api.github.com/users/testnakov/repos';
+            const httpRequest = new XMLHttpRequest();
+            httpRequest.addEventListener('readystatechange', function () {
+                if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                    document.getElementById("res").textContent = httpRequest.responseText;
+                }
+            });
+            httpRequest.open("GET", url);
+            httpRequest.send();
+        });
+    </script>
+</body>
+</html>

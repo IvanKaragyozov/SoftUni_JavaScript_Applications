@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars</title>
+</head>
+<body>
+  <script>
+    const baseUrl = 'https://swapi.dev/api';
+
+    async function getStarWarsCharacter(id){
+      let response = await fetch(`${baseUrl}/people/${id}`);
+
+      return await response.json();
+    }
+
+    getStarWarsCharacter(4)
+        .then(name => console.log(name))
+        .catch(err => console.log(err));
+  </script>
+</body>
+</html>

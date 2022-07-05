@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phonebook</title>
+</head>
+<body>
+
+    <h1>Phonebook</h1>
+    <button id="load-numbers">Load</button>
+
+    <ul id="number-list"></ul>
+
+    <script>
+        const baseUrl = 'http://localhost:3030/jsonstore';
+        const buttonElement = document.getElementById('load-numbers');
+        const numberList = document.getElementById('number-list');
+
+        buttonElement.addEventListener('click', () => {
+            fetch(`${baseUrl}/phonebook`)
+                .then(res => res.json())
+                .then(data => {
+                    numberList.innerHTML = '';
+                    Object.values(data)
+                        .forEach(number => {
+                            let numberElement = document.createElement('li');
+                            numberElement.textContent = JSON.stringify(number);
+                            numberList.appendChild(numberElement);
+                            console.log(number);
+                        })
+                });
+        });
+    </script>
+
+</body>
+</html>
